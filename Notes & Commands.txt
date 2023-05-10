@@ -1,0 +1,56 @@
+Celery,Redis,Docker: https://tamerlan.dev/message-queues-with-celery-redis-and-django/
+https://www.youtube.com/watch?v=bNaPQhW0bV0
+with scheduler: https://github.com/codingforentrepreneurs/Guides/blob/master/all/Celery_Redis_with_Django.md
+
+Uwsgi & ngnix: https://stackabuse.com/asynchronous-tasks-in-django-with-redis-and-celery/
+
+https://www.scaler.com/topics/django/celery-django/
+
+
+
+Full Playlist: https://www.youtube.com/playlist?list=PLLz6Bi1mIXhHKA1Szy2aj9Jbs6nw9fhNY
+Github: https://github.com/priyanshu2015/celery-with-django/
+
+
+project name: django_celery_example
+
+commands:
+    To run the celery worker in activated env:  
+		celery -A celery_project worker --pool=solo -l info
+		celery -A celery_project worker -l info
+
+	To run the celery beat in activated env:  
+		celery -A celery_project beat -l info
+
+To run the celery script:
+	python manage.py shell
+
+	from django_celery_example.celery import debug_task
+	debug_task.delay()
+	<AsyncResult: c600110a-2ec1-4644-ab3d-1528f516bfed>
+
+   from django_celery_example.celery import add
+
+
+Celery Broker is getting the task from the django application. It's like a Queue. Broker assign the task to the Celery worker.
+
+Celery Worker excute the task after getting from broker
+
+Celery beat is used for scheduling and periodic tasks. it send the task to the celery broker then the broker send the task to the worker.
+
+
+Celery pools: How many child process will have in the celery it will defined.
+	prefork: Normally by default it's setup for prefork that's call multiprocessing
+	solo: there will be no child process one worker one process
+	threads: it's the multithreading. The thread depends on the CPU core of the system. if the CPU has 8 cores then it 		can run the 8 threads at a time.
+	
+
+Process Explorer can be use on windows for showing the current process
+
+
+For dynamically handle the celery beat & crontab just handle the CrontabSchedule & PeriodicTask model data, celery & celery beat are working on this table's data. just manage this inside any views fuction and ui also.
+no need to add the dynamically managed task in the celery.py (https://youtu.be/vplXie0uOz8?list=PLLz6Bi1mIXhHKA1Szy2aj9Jbs6nw9fhNY) see 22-25 minutes of this video
+
+
+
+
